@@ -7,11 +7,12 @@ Returns an HTML file with the TOP DeFiLlama protocols
 
 ### Requirements:
 
+```
 pip install pandas
 pip install requests
+```
 
-
-### Example usage:
+### Usage:
 
 ```
 python DLS.py
