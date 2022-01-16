@@ -23,6 +23,7 @@ N_ROW = 10 # number output row
 if __name__ == "__main__":
 
         print('[1/2] Defillama data download')
+
         # save data on df
         df = pd.DataFrame( requests.get('https://api.llama.fi/protocols').json() )
 
