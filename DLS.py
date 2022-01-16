@@ -1,19 +1,22 @@
+#!/usr/bin/python3
+# -----------------------------------------------------------
+# Created By  : https://github.com/8emezzo/DeFiLlama-Screener
+# Created Date: 2022/01/16
+# version ='1.0'
+# -----------------------------------------------------------
+
 import pandas as pd
 import datetime
 import requests
 import os
 
-
-
-##########################################################
-################ CUSTOMIZABLE PARAMETERS #################
-##########################################################
+# --------------- CUSTOMIZABLE PARAMETERS -------------------
 FILE_HTML = 'DLS.html' # path file output HTML
 TVL_LIM = 1 # TVL minimum limit filter in $ millions
 MY_CHAIN = ['Ethereum', 'Polygon', 'Binance', 'Terra', 'Avalanche', 'Solana', 'Fantom', 'Cronos', 'Osmosis',
  'Celo', 'Boba', 'Thorchain', 'Harmony', 'Bitcoin', 'Moonriver', 'Optimism', 'Algorand', 'Arbitrum', 'Kucoin', 'Aurora', 'Kava', 'Near', 'Moonbeam', 'Fuse'] # filter chain
 N_ROW = 10 # number output row
-##########################################################
+# -----------------------------------------------------------
 
 
 
@@ -127,4 +130,3 @@ if __name__ == "__main__":
         # open HTML
         print('[2/2] Open HTML output')
         os.system("start " + FILE_HTML)
-        
