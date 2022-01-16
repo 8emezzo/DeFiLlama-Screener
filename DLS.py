@@ -84,7 +84,7 @@ if __name__ == "__main__":
         html_string = '''
         <html>
             <head><title>DeFiLlama Screener</title></head>
-            <link rel="stylesheet" type="text/css" href="df_style.css"/>
+            <link rel="stylesheet" type="text/css" href="DLS.css"/>
             <body>
                 {table}
             </body>
@@ -127,3 +127,4 @@ if __name__ == "__main__":
         # open HTML
         print('[2/2] Open HTML output')
         os.system("start " + FILE_HTML)
+        
