@@ -1,8 +1,12 @@
 #!/usr/bin/python3
+
 # -----------------------------------------------------------
-# Created By  : https://github.com/8emezzo/DeFiLlama-Screener
-# Created Date: 2022/01/16
-# version ='1.0'
+# author : Simone Venturin
+# email  : 8emezzo@gmail.com
+# www    : https://www.linkedin.com/in/simoneventurin/
+# github : https://github.com/8emezzo
+# date   : 2022/01/16
+# version: 1.0
 # -----------------------------------------------------------
 
 import pandas as pd
