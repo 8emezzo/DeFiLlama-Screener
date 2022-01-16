@@ -5,10 +5,6 @@ Returns an HTML file with the TOP DeFiLlama protocols
 
 -------
 
-### [DeFi Llama Screener](https://defillama.com/home)
-
-For detailed information about the API endpoints, see [DeFi Llama API Documentation](https://docs.llama.fi/api)
-
 ### Requirements:
 
 pip install pandas
