@@ -1,33 +1,35 @@
 #!/usr/bin/python3
 
-# -----------------------------------------------------------
+# ------------------------------------------------------------
 # author : Simone Venturin
 # email  : 8emezzo@gmail.com
 # www    : https://www.linkedin.com/in/simoneventurin/
 # github : https://github.com/8emezzo
 # date   : 2022/01/16
 # version: 1.0
-# -----------------------------------------------------------
+# ------------------------------------------------------------
 
 import pandas as pd
 import datetime
 import requests
 import os
 
-# --------------- CUSTOMIZABLE PARAMETERS -------------------
+# --------------- CUSTOMIZABLE PARAMETERS --------------------
 FILE_HTML = 'DLS.html' # path file output HTML
-TVL_LIM = 1 # TVL minimum limit filter in $ millions
-MY_CHAIN = ['Ethereum', 'Polygon', 'Binance', 'Terra', 'Avalanche', 'Solana', 'Fantom', 'Cronos', 'Osmosis',
- 'Celo', 'Boba', 'Thorchain', 'Harmony', 'Bitcoin', 'Moonriver', 'Optimism', 'Algorand', 'Arbitrum', 'Kucoin', 'Aurora', 'Kava', 'Near', 'Moonbeam', 'Fuse'] # filter chain
-N_ROW = 10 # number output row
-# -----------------------------------------------------------
+TVL_LIM   = 1 # TVL minimum limit filter in $ millions
+N_ROW     = 10 # number output row
+MY_CHAIN  = ['Ethereum', 'Polygon', 'Binance', 'Terra',
+ 'Avalanche', 'Solana', 'Fantom', 'Cronos', 'Osmosis', 'Celo',
+ 'Boba', 'Thorchain', 'Harmony', 'Bitcoin', 'Moonriver',
+ 'Optimism', 'Algorand', 'Arbitrum', 'Kucoin', 'Aurora',
+ 'Kava', 'Near', 'Moonbeam', 'Fuse'] # filter chain
+# ------------------------------------------------------------
 
 
 
 if __name__ == "__main__":
 
         print('[1/2] Defillama data download')
-
         # save data on df
         df = pd.DataFrame( requests.get('https://api.llama.fi/protocols').json() )
 
@@ -107,9 +109,9 @@ if __name__ == "__main__":
         md = (df_d.change_1d.median() + df_d.change_1d.mean())/2 # average weight percentage daily
         mw = (df_w.change_7d.median() + df_w.change_7d.mean())/2 # average weight percentage weekly
 
-        df_sum3 = df.assign(sub_tot=df['change_1h']/mh + df['change_1d']/md + df['change_7d']/mw).sort_values(by='sub_tot',ascending=False).drop(columns=['sub_tot']).head(N_ROW)
-        df_sum2 = df.assign(sub_tot=df['change_1h']/mh + df['change_1d']/md                     ).sort_values(by='sub_tot',ascending=False).drop(columns=['sub_tot']).head(N_ROW)
-        df_sum1 = df.assign(sub_tot=                     df['change_1d']/md + df['change_7d']/mw).sort_values(by='sub_tot',ascending=False).drop(columns=['sub_tot']).head(N_ROW)
+        df_sum_hd  = df.assign(sub_tot=df['change_1h']/mh + df['change_1d']/md                     ).sort_values(by='sub_tot',ascending=False).drop(columns=['sub_tot']).head(N_ROW)
+        df_sum_dw  = df.assign(sub_tot=                     df['change_1d']/md + df['change_7d']/mw).sort_values(by='sub_tot',ascending=False).drop(columns=['sub_tot']).head(N_ROW)
+        df_sum_hdw = df.assign(sub_tot=df['change_1h']/mh + df['change_1d']/md + df['change_7d']/mw).sort_values(by='sub_tot',ascending=False).drop(columns=['sub_tot']).head(N_ROW)
 
         df_index = df[ (df['tvl']>2) & (df['tvl_index']>0) ].sort_values(by='tvl_index', ascending=True)
 
@@ -117,12 +119,12 @@ if __name__ == "__main__":
         with open(FILE_HTML, 'w') as f:
             f.write("</BR></pre> Update data " + datetime.datetime.now().strftime("%d-%b-%Y %H:%M:%S") )
             f.write("</BR>")
-            f.write("</BR></pre> Top hour+day+week")
-            f.write(html_string.format(table=df_sum3.to_html(escape=False, classes='mystyle')))
             f.write("</BR></pre> Top hour+day")
-            f.write(html_string.format(table=df_sum2.to_html(escape=False, classes='mystyle')))
+            f.write(html_string.format(table=df_sum_hd.to_html(escape=False, classes='mystyle')))
             f.write("</BR></pre> Top day+week")
-            f.write(html_string.format(table=df_sum1.to_html(escape=False, classes='mystyle')))
+            f.write(html_string.format(table=df_sum_dw.to_html(escape=False, classes='mystyle')))
+            f.write("</BR></pre> Top hour+day+week")
+            f.write(html_string.format(table=df_sum_hdw.to_html(escape=False, classes='mystyle')))
             f.write("</BR></pre> Top hour")
             f.write(html_string.format(table=df_h.to_html(escape=False, classes='mystyle')))
             f.write("</BR></pre> Top day")
